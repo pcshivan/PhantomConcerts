@@ -1,0 +1,4 @@
+# robots.txt for Phantom Concerts
+User-agent: *
+Allow: /
+Sitemap: https://www.phantomconcerts.com/sitemap.xml
