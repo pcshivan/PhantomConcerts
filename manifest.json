@@ -1,10 +1,11 @@
 {
   "name": "Phantom Concerts",
   "short_name": "PhantomConcerts",
+  "description": "AI multimodal concert experiences by Phantom City Studios.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#060616",
-  "theme_color": "#ff007a",
+  "background_color": "#050712",
+  "theme_color": "#070914",
   "icons": [
     {
       "src": "assets/favicon.png",

@@ -1,279 +1,515 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!--
-      Phantom Concerts
-      This document defines a premium, globally‑targeted marketing site for the Phantom Concerts brand.
-      It embraces a cinematic and youthful aesthetic while staying true to the high‑end identity of
-      Phantom City Studios. It integrates modern web features and SEO best practices for discoverability.
-    -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Primary meta tags -->
-    <title>Phantom Concerts – Where AI Meets Music</title>
+    <title>Phantom Concerts | AI Multimodal Concert Experiences</title>
     <meta
       name="description"
-      content="Experience the future of live music at Phantom Concerts: a globally immersive AI‑powered concert experience blending sound, visuals and technology."
+      content="Book Phantom Concerts for AI multimodal music experiences that combine live performance, generative visuals, spatial sound, conversational AI, and global-ready production design."
     />
-    <meta name="keywords" content="Phantom Concerts, AI concert, futuristic music, immersive experience, live performances" />
+    <meta
+      name="keywords"
+      content="Phantom Concerts, AI concert, multimodal concert, immersive music experience, live AI performance, Phantom City Studios"
+    />
+    <meta name="theme-color" content="#070914" />
     <link rel="canonical" href="https://www.phantomconcerts.com/" />
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.phantomconcerts.com/" />
-    <meta property="og:title" content="Phantom Concerts – Where AI Meets Music" />
-    <meta property="og:description" content="Experience the future of live music at Phantom Concerts: a globally immersive AI‑powered concert experience blending sound, visuals and technology." />
-    <meta property="og:image" content="https://www.phantomconcerts.com/og-image.jpg" />
-    <!-- Twitter -->
+    <meta property="og:title" content="Phantom Concerts | AI Multimodal Concert Experiences" />
+    <meta
+      property="og:description"
+      content="Entertainment-led AI concerts engineered across music, visuals, voice, interactivity, and global production systems."
+    />
+    <meta property="og:image" content="https://www.phantomconcerts.com/assets/hero-fallback.jpg" />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://www.phantomconcerts.com/" />
-    <meta property="twitter:title" content="Phantom Concerts – Where AI Meets Music" />
-    <meta property="twitter:description" content="Experience the future of live music at Phantom Concerts: a globally immersive AI‑powered concert experience blending sound, visuals and technology." />
-    <meta property="twitter:image" content="https://www.phantomconcerts.com/og-image.jpg" />
-    <!-- Favicon and Manifest -->
+    <meta property="twitter:title" content="Phantom Concerts | AI Multimodal Concert Experiences" />
+    <meta
+      property="twitter:description"
+      content="Build a Phantom Concert with a premium booking flow designed for venues, festivals, brands, and hybrid audiences."
+    />
+    <meta property="twitter:image" content="https://www.phantomconcerts.com/assets/hero-fallback.jpg" />
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <link rel="manifest" href="/manifest.json" />
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
-    <!-- External Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" integrity="sha512-+He1NHgcvvpsrFU9LVE/0zQxzxbFkG9wARleAJG6v9CrNRA1ZTyLK0Gwv3mM+8pJ2Cn+i0eBv9FNPI37uowkVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js" integrity="sha512-Ilm0BpwVh0ECycNDioTaZHT/DEzZC8cyrX4uAiYP2bzdPXNPb8PPdFiKslrQpT+N2T8AgEW6YVoZywxODX+D8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.13/lottie.min.js" integrity="sha512-2nVrDZFdfpD2/G2kRncGul0Mn0YjlIsPFM1zbCu7SjoYZ+4c0rN8nYWuEAk1sYJCXzfawycIbOcwzByaGEn8ZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Oxanium:wght@400;600;700;800&amp;family=Rajdhani:wght@500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!-- Structured Data: Organization and Event Schema -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Event",
-        "name": "Phantom Concerts",
-        "description": "AI‑powered immersive concert experience blending music and technology.",
-        "startDate": "2026-06-01T20:00:00+05:30",
-        "endDate": "2026-06-01T23:00:00+05:30",
-        "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
-        "eventStatus": "https://schema.org/EventScheduled",
-        "location": {
-          "@type": "Place",
-          "name": "TBD Worldwide Venues",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Global",
-            "addressRegion": "",
-            "addressCountry": "Worldwide"
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.phantomconcerts.com/#organization",
+            "name": "Phantom Concerts",
+            "url": "https://www.phantomconcerts.com/",
+            "logo": "https://www.phantomconcerts.com/assets/logo.png",
+            "parentOrganization": {
+              "@type": "Organization",
+              "name": "Phantom City Studios",
+              "url": "https://phantomcitystudios.com"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "sales",
+              "email": "contact@phantomcitystudios.com",
+              "availableLanguage": ["English"]
+            }
+          },
+          {
+            "@type": "Service",
+            "name": "Phantom Concerts Booking",
+            "url": "https://www.phantomconcerts.com/booking.html",
+            "provider": {
+              "@id": "https://www.phantomconcerts.com/#organization"
+            },
+            "serviceType": "AI multimodal concert production",
+            "areaServed": "Worldwide",
+            "description": "Custom AI-powered concert productions combining live music, generative visuals, spatial audio, voice interfaces, audience interaction, and hybrid broadcast layers."
           }
-        },
-        "organizer": {
-          "@type": "Organization",
-          "name": "Phantom City Studios",
-          "url": "https://www.phantomcitystudios.com"
-        }
+        ]
       }
     </script>
-
-    <!-- Header / Navigation -->
-    <header class="navbar" id="navbar">
-      <div class="logo">
-        <img src="assets/logo.png" alt="Phantom Concerts logo" />
+  </head>
+  <body class="page-home">
+    <header class="site-header" id="site-header">
+      <div class="container site-header-inner">
+        <a class="brand" href="index.html" aria-label="Phantom Concerts home">
+          <img src="assets/logo.png" alt="Phantom Concerts logo" />
+          <span>Phantom Concerts</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="#experience">Experience</a>
+          <a href="#formats">Formats</a>
+          <a href="#technology">Technology</a>
+          <a href="#booking-flow">Booking Flow</a>
+          <a href="booking.html" class="button primary nav-cta">Book Now</a>
+        </nav>
       </div>
-      <nav class="nav-links">
-        <a href="#experience">Experience</a>
-        <a href="#shows">Shows</a>
-        <a href="#technology">Technology</a>
-        <a href="#tickets" class="button primary">Get Tickets</a>
-      </nav>
-      <!-- Hamburger for mobile -->
-      <button class="nav-toggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
     </header>
 
-    <!-- Hero Section with Video and Call to Action -->
-    <section class="hero" id="hero">
-      <!-- Video background for hero: fallback to image if unsupported -->
-      <video class="hero-video" autoplay muted loop playsinline>
-        <source src="assets/hero-video.mp4" type="video/mp4" />
-        <!-- Optionally add WebM for better compression-->
-        <source src="assets/hero-video.webm" type="video/webm" />
-        <!-- Fallback image for browsers that don't support video -->
-        <img src="assets/hero-fallback.jpg" alt="Futuristic concert backdrop" />
-      </video>
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1 class="hero-title">Experience the Future of Music</h1>
-        <p class="hero-subtitle">Where AI, sound and vision collide on a global stage</p>
-        <button class="button tertiary" id="enter-experience">Enter the Experience</button>
-      </div>
-      <!-- Audio reactive canvas; JS will draw waveform here -->
-      <canvas id="audio-visualization" aria-hidden="true"></canvas>
-    </section>
+    <main>
+      <section class="hero-section">
+        <div class="hero-backdrop"></div>
+        <div class="hero-gridlines"></div>
+        <div class="hero-rays"></div>
+        <div class="hero-orb hero-orb-a"></div>
+        <div class="hero-orb hero-orb-b"></div>
+        <div class="container hero-grid">
+          <div class="hero-copy" data-reveal>
+            <p class="eyebrow eyebrow-pill">India's First AI Multimodal Concert</p>
+            <h1 class="display-title">
+              <span class="title-line">Where Sound</span>
+              <span class="title-line gradient-line">Vision &amp; AI</span>
+              <span class="title-line">Collide Live</span>
+            </h1>
+            <p class="hero-lead">
+              Live performance, generative visuals, voice intelligence, and spatial sound fused into one
+              globally bookable concert format.
+            </p>
+            <div class="hero-actions">
+              <a href="booking.html" class="button primary">Book Now</a>
+              <a href="#experience" class="button secondary">Enter the Experience</a>
+            </div>
+            <div class="hero-signals" aria-label="Concert capabilities">
+              <span class="signal-chip">Real-time AI visuals</span>
+              <span class="signal-chip">Light-reactive stage systems</span>
+              <span class="signal-chip">Spatial and adaptive audio</span>
+              <span class="signal-chip">Hybrid-ready storytelling</span>
+            </div>
+          </div>
 
-    <!-- Experience Section -->
-    <section class="section experience" id="experience">
-      <div class="container">
-        <h2 class="section-title">An Immersive Sonic Universe</h2>
-        <p class="section-description">
-          Phantom Concerts is not just a show – it's a journey. Powered by generative AI and deep
-          storytelling, every performance transforms data into breathtaking visuals and soundscapes. Step into
-          a world where music charts new frontiers and imagination knows no limits.
-        </p>
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon" id="lottie-ai"></div>
-            <h3 class="feature-title">Generative Visuals</h3>
-            <p>AI renders dynamic, real‑time worlds that react to the rhythm.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon" id="lottie-performance"></div>
-            <h3 class="feature-title">Hybrid Performances</h3>
-            <p>Human and AI artists collaborate for a new concert paradigm.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon" id="lottie-audio"></div>
-            <h3 class="feature-title">Spatial Sound</h3>
-            <p>360° audio designed with pinpoint precision for total immersion.</p>
+          <div class="hero-stage" data-reveal>
+            <article class="spotlight-panel masked-panel">
+              <p class="panel-label">Concert Logic</p>
+              <h2>Show-first. System-deep.</h2>
+              <p>
+                A premium show engine built to make AI feel seamless, emotional, and stage-native.
+              </p>
+              <ul class="panel-list">
+                <li>Live stage and venue adaptation</li>
+                <li>Debut, touring, and hybrid-ready editions</li>
+                <li>Structured global production handoff</li>
+              </ul>
+            </article>
+
+            <div class="hero-stage-stack">
+              <figure class="hero-media-card">
+                <img src="assets/show2.jpg" alt="Phantom Concerts signature concert visual system" />
+                <figcaption>
+                  Original concert energy, rebuilt with cleaner layering, glow treatment, and cinematic
+                  motion.
+                </figcaption>
+              </figure>
+
+              <aside class="hero-next-card masked-panel">
+                <p class="panel-label">Launch Signal</p>
+                <h3>Mumbai • India</h3>
+                <p>Flagship debut with AI visuals, spatial audio, cinematic storytelling, and hybrid broadcast reach.</p>
+                <div class="mini-stats">
+                  <div class="mini-stat">
+                    <strong>360°</strong>
+                    <span>spatial immersion</span>
+                  </div>
+                  <div class="mini-stat">
+                    <strong>25+</strong>
+                    <span>AI scene systems</span>
+                  </div>
+                  <div class="mini-stat">
+                    <strong>Global</strong>
+                    <span>venue-ready architecture</span>
+                  </div>
+                </div>
+              </aside>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Shows Section -->
-    <section class="section shows" id="shows">
-      <div class="container">
-        <h2 class="section-title">Performances</h2>
-        <p class="section-description">
-          Explore upcoming and past performances from Phantom Concerts. Each event is unique, featuring
-          collaborations with iconic venues and cutting‑edge artists.
-        </p>
-        <div class="showcases">
-          <article class="showcase-card">
-            <img src="assets/show1.jpg" alt="Showcase 1" />
-            <div class="showcase-info">
-              <h3>India Debut</h3>
-              <p>Be part of history as we unveil the first AI multimodal concert in India.</p>
-              <span class="show-date">Coming Summer 2026</span>
-              <a href="#tickets" class="button ghost">Reserve</a>
-            </div>
+        <div class="container hero-metric-band" data-reveal>
+          <article class="metric-card">
+            <strong>500K+</strong>
+            <span>fan reach across venue and hybrid layers</span>
           </article>
-          <article class="showcase-card">
-            <img src="assets/show2.jpg" alt="Showcase 2" />
-            <div class="showcase-info">
-              <h3>Global Tour</h3>
-              <p>London, Tokyo, Los Angeles & more – experience our world tour.</p>
-              <span class="show-date">2026 – 2027</span>
-              <a href="#tickets" class="button ghost">Notify Me</a>
-            </div>
+          <article class="metric-card">
+            <strong>25+</strong>
+            <span>AI systems across visuals, voice, and interaction</span>
           </article>
-          <article class="showcase-card">
-            <img src="assets/show3.jpg" alt="Showcase 3" />
-            <div class="showcase-info">
-              <h3>Virtual Experience</h3>
-              <p>Join from anywhere in the world in our fully interactive metaverse.</p>
-              <span class="show-date">Available On‑Demand</span>
-              <a href="#tickets" class="button ghost">Explore</a>
-            </div>
+          <article class="metric-card">
+            <strong>12</strong>
+            <span>format-ready cities in expansion scope</span>
+          </article>
+          <article class="metric-card">
+            <strong>Iconic</strong>
+            <span>brand language built for global impact</span>
           </article>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Technology Section -->
-    <section class="section technology" id="technology">
-      <div class="container">
-        <h2 class="section-title">The Tech Behind the Magic</h2>
-        <p class="section-description">
-          Our proprietary stack combines generative neural networks, cutting‑edge audio processing and
-          advanced lighting to deliver an experience unlike anything you've felt. Learn how we fuse machine
-          creativity with human artistry for a show that transcends categories.
-        </p>
-        <div class="tech-grid">
-          <div class="tech-item">
-            <h3>AI & Machine Learning</h3>
-            <p>Custom models trained on thousands of audio‑visual datasets respond in real time to
-              performance cues.</p>
-          </div>
-          <div class="tech-item">
-            <h3>WebGL Visuals</h3>
-            <p>Interactive 3D environments powered by Three.js envelope audiences in cosmic scenes.
+      <section class="signal-band" aria-label="Core capabilities">
+        <div class="container signal-band-inner">
+          <span>Generative visual systems</span>
+          <span>Spatial and reactive audio</span>
+          <span>AI multilingual hosting</span>
+          <span>Interactive audience moments</span>
+          <span>Hybrid broadcast orchestration</span>
+        </div>
+      </section>
+
+      <section class="section" id="experience">
+        <div class="container">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Experience</p>
+            <h2>One concert system. Multiple AI modalities.</h2>
+            <p>
+              Music, visuals, voice, lighting, and interaction move as one so the technology feels native
+              to the show.
             </p>
           </div>
-          <div class="tech-item">
-            <h3>Spatial Audio Engine</h3>
-            <p>State‑of‑the‑art algorithms place sound with millimetre accuracy, creating a truly immersive
-              sound field.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Tickets Section -->
-    <section class="section tickets" id="tickets">
-      <div class="container">
-        <h2 class="section-title">Get Your Tickets</h2>
-        <p class="section-description">
-          Secure your spot for the most exciting show on Earth. Limited availability – our concerts sell out
-          fast!
-        </p>
-        <!-- Countdown timer for next show -->
-        <div class="countdown" id="countdown">
-          <div class="countdown-item">
-            <span id="days">00</span>
-            <small>Days</small>
-          </div>
-          <div class="countdown-item">
-            <span id="hours">00</span>
-            <small>Hours</small>
-          </div>
-          <div class="countdown-item">
-            <span id="minutes">00</span>
-            <small>Minutes</small>
-          </div>
-          <div class="countdown-item">
-            <span id="seconds">00</span>
-            <small>Seconds</small>
+          <div class="feature-grid">
+            <article class="feature-card" data-reveal>
+              <div class="feature-icon" aria-hidden="true">01</div>
+              <h3>Multimodal Performance Engine</h3>
+              <p>
+                Music, motion, spoken interaction, visuals, and live cues operate as one performance
+                system rather than disconnected effects.
+              </p>
+            </article>
+            <article class="feature-card" data-reveal>
+              <div class="feature-icon" aria-hidden="true">02</div>
+              <h3>Responsive Visual Worlds</h3>
+              <p>
+                Generative scenes, camera layers, and lighting palettes evolve with tempo, mood, and
+                narrative beats in real time.
+              </p>
+            </article>
+            <article class="feature-card" data-reveal>
+              <div class="feature-icon" aria-hidden="true">03</div>
+              <h3>Audience Intelligence</h3>
+              <p>
+                Multilingual voice moments, reactive prompts, and participation mechanics create a more
+                intimate connection with live and remote audiences.
+              </p>
+            </article>
+            <article class="feature-card" data-reveal>
+              <div class="feature-icon" aria-hidden="true">04</div>
+              <h3>Global Delivery Design</h3>
+              <p>
+                The format is shaped for launch nights, touring runs, brand activations, hybrid streams,
+                and venue-specific adaptation.
+              </p>
+            </article>
           </div>
         </div>
-        <button class="button primary" id="book-tickets">Book Now</button>
-        <!-- Razorpay / Stripe integration placeholder; real implementation to be added server‑side -->
-      </div>
-    </section>
+      </section>
 
-    <!-- Social & Footer Section -->
-    <footer class="footer">
-      <div class="container footer-container">
-        <div class="brand">
-          <img src="assets/logo.png" alt="Phantom Concerts logo" />
-          <p class="tagline">A Unit of Phantom City Studios</p>
+      <section class="section section-tinted" id="formats">
+        <div class="container">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Formats</p>
+            <h2>Choose the format. Scale the impact.</h2>
+            <p>
+              Every format opens into a tailored booking build with the right scope, modules, and planning
+              defaults.
+            </p>
+          </div>
+
+          <div class="format-grid">
+            <article class="format-card" data-reveal>
+              <img src="assets/show1.jpg" alt="India debut concert format" />
+              <div class="format-content">
+                <p class="format-meta">Flagship</p>
+                <h3>India Debut Edition</h3>
+                <p>
+                  A large-format premiere for landmark venues, media attention, and sponsor-ready staging.
+                </p>
+                <ul class="card-points">
+                  <li>Lead-market launch narrative</li>
+                  <li>Full AI visual and audio stack</li>
+                  <li>VIP, sponsor, and press layering</li>
+                </ul>
+                <a
+                  href="booking.html?experience=flagship-arena&amp;region=asia-pacific&amp;audience=5000-15000&amp;modules=visual-worlds,spatial-audio,live-broadcast"
+                  class="button secondary"
+                  >Book Now</a
+                >
+              </div>
+            </article>
+
+            <article class="format-card" data-reveal>
+              <img src="assets/show2.jpg" alt="Global touring concert format" />
+              <div class="format-content">
+                <p class="format-meta">Touring</p>
+                <h3>Global Tour System</h3>
+                <p>
+                  A modular touring build for theaters, festival stages, and city-by-city localization.
+                </p>
+                <ul class="card-points">
+                  <li>Tour-friendly production logic</li>
+                  <li>Regional language adaptation</li>
+                  <li>Scalable venue and city deployment</li>
+                </ul>
+                <a
+                  href="booking.html?experience=touring-theater&amp;region=multi-city-global&amp;audience=1000-5000&amp;language=multilingual&amp;modules=visual-worlds,ai-host,audience-interaction"
+                  class="button secondary"
+                  >Book Now</a
+                >
+              </div>
+            </article>
+
+            <article class="format-card" data-reveal>
+              <img src="assets/show3.jpg" alt="Hybrid and virtual concert format" />
+              <div class="format-content">
+                <p class="format-meta">Hybrid</p>
+                <h3>Hybrid Broadcast Edition</h3>
+                <p>
+                  A digital-first format for launch broadcasts, remote audiences, and hybrid participation.
+                </p>
+                <ul class="card-points">
+                  <li>Broadcast-native storytelling</li>
+                  <li>Digital audience interaction</li>
+                  <li>Global distribution readiness</li>
+                </ul>
+                <a
+                  href="booking.html?experience=hybrid-broadcast&amp;region=north-america&amp;audience=up-to-1000&amp;modules=live-broadcast,ai-host,audience-interaction"
+                  class="button secondary"
+                  >Book Now</a
+                >
+              </div>
+            </article>
+          </div>
         </div>
-        <div class="social-links">
-          <a href="https://www.instagram.com/phantomconcerts" aria-label="Instagram">
-            <img src="assets/instagram.svg" alt="Instagram" />
-          </a>
-          <a href="https://twitter.com/phantomconcerts" aria-label="Twitter">
-            <img src="assets/twitter.svg" alt="Twitter" />
-          </a>
-          <a href="https://youtube.com/@phantomconcerts" aria-label="YouTube">
-            <img src="assets/youtube.svg" alt="YouTube" />
-          </a>
-          <a href="https://www.tiktok.com/@phantomconcerts" aria-label="TikTok">
-            <img src="assets/tiktok.svg" alt="TikTok" />
-          </a>
+      </section>
+
+      <section class="section" id="technology">
+        <div class="container">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Technology</p>
+            <h2>Built for spectacle. Engineered for delivery.</h2>
+            <p>
+              Visuals, spatial audio, voice, and broadcast control run inside one coordinated show stack.
+            </p>
+          </div>
+
+          <div class="tech-grid">
+            <article class="tech-card" data-reveal>
+              <h3>Generative Visual Layer</h3>
+              <p>
+                Image and motion systems create scene evolution, reactive moments, and visual transitions
+                that stay musically coherent in real time.
+              </p>
+            </article>
+            <article class="tech-card" data-reveal>
+              <h3>Spatial Audio Direction</h3>
+              <p>
+                Sound is treated as architecture, placing impact, intimacy, and momentum with deliberate
+                control across the venue.
+              </p>
+            </article>
+            <article class="tech-card" data-reveal>
+              <h3>Voice and Language Systems</h3>
+              <p>
+                AI voice layers support multilingual hosting, narrative transitions, and interactive
+                moments without breaking the concert tone.
+              </p>
+            </article>
+            <article class="tech-card" data-reveal>
+              <h3>Hybrid Broadcast Control</h3>
+              <p>
+                Streaming, camera logic, digital audience scenes, and remote storytelling can be added as a
+                first-class part of the show.
+              </p>
+            </article>
+          </div>
         </div>
-        <div class="footer-links">
+      </section>
+
+      <section class="section section-tinted" id="booking-flow">
+        <div class="container">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Booking Flow</p>
+            <h2>A real build-and-brief booking flow.</h2>
+            <p>
+              Configure the concert, generate a scoped brief, and route it into official intake.
+            </p>
+          </div>
+
+          <div class="flow-grid">
+            <article class="flow-card" data-reveal>
+              <span>01</span>
+              <h3>Configure the concert</h3>
+              <p>Select format, audience scale, AI layers, language, region, and operational modules.</p>
+            </article>
+            <article class="flow-card" data-reveal>
+              <span>02</span>
+              <h3>Generate a structured brief</h3>
+              <p>The configurator produces a clean scope summary with investment guidance and deliverables.</p>
+            </article>
+            <article class="flow-card" data-reveal>
+              <span>03</span>
+              <h3>Route through official intake</h3>
+              <p>Send the brief by email and continue directly to Phantom City Studios for formal discovery.</p>
+            </article>
+            <article class="flow-card" data-reveal>
+              <span>04</span>
+              <h3>Align venue and commerce ops</h3>
+              <p>Ticketing, payment, and venue-side systems are then set around the actual event stack.</p>
+            </article>
+          </div>
+
+          <div class="cta-band" data-reveal>
+            <div>
+              <p class="eyebrow">Build Your Brief</p>
+              <h3>Build the concert like a flagship machine.</h3>
+              <p>
+                Set the format, review the scope, and hand it off cleanly.
+              </p>
+            </div>
+            <a href="booking.html" class="button primary">Book Now</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section launch-window">
+        <div class="container launch-grid">
+          <div class="launch-copy" data-reveal>
+            <p class="eyebrow">Next Signal</p>
+            <h2>Mumbai debut. Global rollout.</h2>
+            <p>
+              Now opening conversations for flagship launches, touring editions, and hybrid showcase partners.
+            </p>
+          </div>
+          <div class="countdown-card" data-reveal>
+            <p class="panel-label">Indicative launch countdown</p>
+            <div class="countdown" data-countdown-target="2026-09-12T20:00:00+05:30" aria-live="polite">
+              <div class="countdown-item">
+                <span data-countdown-value="days">00</span>
+                <small>Days</small>
+              </div>
+              <div class="countdown-item">
+                <span data-countdown-value="hours">00</span>
+                <small>Hours</small>
+              </div>
+              <div class="countdown-item">
+                <span data-countdown-value="minutes">00</span>
+                <small>Minutes</small>
+              </div>
+              <div class="countdown-item">
+                <span data-countdown-value="seconds">00</span>
+                <small>Seconds</small>
+              </div>
+            </div>
+            <a href="booking.html?experience=flagship-arena" class="button primary">Book Now</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a class="brand brand-footer" href="index.html">
+            <img src="assets/logo.png" alt="Phantom Concerts logo" />
+            <span>Phantom Concerts</span>
+          </a>
+          <p class="footer-copy">
+            A Phantom City Studios concert format built for global venues, ambitious brands, cultural
+            launches, and hybrid audiences.
+          </p>
+        </div>
+
+        <div>
+          <p class="footer-title">Explore</p>
           <a href="#experience">Experience</a>
-          <a href="#shows">Shows</a>
+          <a href="#formats">Formats</a>
           <a href="#technology">Technology</a>
-          <a href="#tickets">Tickets</a>
-          <a href="mailto:hello@phantomconcerts.com">Contact</a>
+          <a href="booking.html">Book Now</a>
+        </div>
+
+        <div>
+          <p class="footer-title">Contact</p>
+          <a href="mailto:contact@phantomcitystudios.com">contact@phantomcitystudios.com</a>
+          <a href="https://phantomcitystudios.com/contact" target="_blank" rel="noreferrer"
+            >Official contact page</a
+          >
+          <a href="https://phantomcitystudios.com" target="_blank" rel="noreferrer">Phantom City Studios</a>
+        </div>
+
+        <div>
+          <p class="footer-title">Follow</p>
+          <div class="social-links">
+            <a href="https://www.instagram.com/phantomconcerts" aria-label="Instagram">
+              <img src="assets/instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://twitter.com/phantomconcerts" aria-label="Twitter">
+              <img src="assets/twitter.svg" alt="Twitter" />
+            </a>
+            <a href="https://youtube.com/@phantomconcerts" aria-label="YouTube">
+              <img src="assets/youtube.svg" alt="YouTube" />
+            </a>
+            <a href="https://www.tiktok.com/@phantomconcerts" aria-label="TikTok">
+              <img src="assets/tiktok.svg" alt="TikTok" />
+            </a>
+          </div>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>© 2026 Phantom Concerts – All rights reserved.</p>
+
+      <div class="container footer-bottom">
+        <p>© <span data-current-year>2026</span> Phantom Concerts. All rights reserved.</p>
       </div>
     </footer>
 
-    <!-- JavaScript -->
     <script src="main.js"></script>
   </body>
 </html>
