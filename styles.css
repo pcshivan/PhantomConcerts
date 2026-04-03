@@ -373,9 +373,9 @@ button {
 }
 
 .brand img {
-  width: 3rem;
-  height: 3rem;
-  object-fit: cover;
+  width: 6rem;
+  height: 4rem;
+  object-fit: fill;
   border-radius: 50%;
   box-shadow: 0 0 26px rgba(255, 53, 203, 0.18);
 }
