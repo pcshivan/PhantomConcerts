@@ -240,9 +240,9 @@ button {
 
 .display-title {
   margin: 0;
-  font-size: clamp(3.2rem, 7vw, 6.15rem);
+  font-size: clamp(3.2rem, 6.5vw, 5.6rem);
   font-weight: 800;
-  line-height: 0.94;
+  line-height: 0.9;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   text-wrap: balance;
@@ -251,7 +251,7 @@ button {
 
 .title-line {
   display: block;
-  padding-right: 0.14em;
+  padding-right: 0.12em;
 }
 
 .gradient-line {
@@ -902,27 +902,138 @@ button {
 .signal-band {
   position: relative;
   z-index: 1;
-  padding-bottom: 1rem;
+  padding-bottom: 0.3rem;
+  overflow: hidden;
+}
+
+.signal-band-hero {
+  position: relative;
+  isolation: isolate;
+  padding: 0.35rem 0 0.45rem;
+}
+
+.signal-band-hero::before,
+.signal-band-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.signal-band-hero::before {
+  z-index: -2;
+  background:
+    linear-gradient(180deg, rgba(5, 7, 18, 0.88) 0%, rgba(5, 7, 18, 0.74) 38%, rgba(4, 6, 16, 0.4) 100%),
+    radial-gradient(circle at 18% 52%, rgba(36, 216, 255, 0.16), transparent 30%),
+    radial-gradient(circle at 82% 46%, rgba(255, 53, 203, 0.15), transparent 28%),
+    linear-gradient(90deg, rgba(6, 9, 24, 0.2), rgba(10, 14, 32, 0.4) 18%, rgba(10, 14, 32, 0.4) 82%, rgba(6, 9, 24, 0.2));
+}
+
+.signal-band-hero::after {
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 22%, transparent 78%, rgba(255, 255, 255, 0.02)),
+    linear-gradient(90deg, transparent, rgba(36, 216, 255, 0.08) 28%, rgba(255, 53, 203, 0.08) 72%, transparent);
+  opacity: 0.9;
+}
+
+.signal-band-hero + .hero-section {
+  padding-top: 1.9rem;
+}
+
+.signal-band-viewport {
+  position: relative;
+  overflow: hidden;
+  padding: 0.16rem;
+  border: 1px solid rgba(84, 127, 255, 0.16);
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(8, 12, 28, 0.84), rgba(10, 15, 34, 0.68), rgba(8, 12, 28, 0.84)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(22px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 16px 34px rgba(0, 0, 0, 0.18),
+    0 0 44px rgba(36, 216, 255, 0.06);
+}
+
+.signal-band-viewport::before,
+.signal-band-viewport::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: clamp(2.5rem, 8vw, 7rem);
+  pointer-events: none;
+}
+
+.signal-band-viewport::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(8, 12, 28, 0.98), rgba(8, 12, 28, 0));
+}
+
+.signal-band-viewport::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(8, 12, 28, 0.98), rgba(8, 12, 28, 0));
+}
+
+.signal-band-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: concertMarquee 30s linear infinite;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.signal-band-track.is-runtime {
+  animation: none;
 }
 
 .signal-band-inner {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0.9rem;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.55rem;
+  padding-right: 0.55rem;
+  white-space: nowrap;
 }
 
 .signal-band-inner span {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 4rem;
-  padding: 1rem;
-  border: 1px solid rgba(84, 117, 255, 0.18);
+  min-height: 2.9rem;
+  padding: 0.55rem 1rem;
+  border: 1px solid rgba(100, 130, 255, 0.14);
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(11, 17, 38, 0.72), rgba(6, 9, 24, 0.5));
-  color: #e6ebff;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(9, 13, 28, 0.58)),
+    linear-gradient(135deg, rgba(36, 216, 255, 0.08), rgba(255, 53, 203, 0.08));
+  color: #eef2ff;
   text-align: center;
-  box-shadow: var(--shadow-soft);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 10px 22px rgba(0, 0, 0, 0.18);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 16px rgba(36, 216, 255, 0.12),
+    0 0 22px rgba(255, 53, 203, 0.08);
+}
+
+@keyframes concertMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .feature-grid,
@@ -1522,8 +1633,7 @@ textarea.field {
   .feature-grid,
   .tech-grid,
   .flow-grid,
-  .format-grid,
-  .signal-band-inner {
+  .format-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1584,6 +1694,14 @@ textarea.field {
     padding-top: 5.1rem;
   }
 
+  .signal-band-hero {
+    padding: 0.25rem 0 0.35rem;
+  }
+
+  .signal-band-hero + .hero-section {
+    padding-top: 1.45rem;
+  }
+
   .site-header-inner {
     min-height: 4.7rem;
   }
@@ -1603,13 +1721,22 @@ textarea.field {
   .tech-grid,
   .flow-grid,
   .format-grid,
-  .signal-band-inner,
   .hero-metric-band,
   .option-grid,
   .option-grid.modules-grid,
   .contact-grid,
   .countdown {
     grid-template-columns: 1fr;
+  }
+
+  .signal-band-track {
+    animation-duration: 24s;
+  }
+
+  .signal-band-inner span {
+    min-height: 2.5rem;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.76rem;
   }
 
   .brand span {
@@ -1642,5 +1769,23 @@ textarea.field {
   [data-reveal] {
     opacity: 1;
     transform: none;
+  }
+
+  .signal-band-track {
+    width: auto;
+    animation: none;
+  }
+
+  .signal-band-viewport {
+    overflow-x: auto;
+  }
+
+  .signal-band-viewport::before,
+  .signal-band-viewport::after {
+    display: none;
+  }
+
+  .signal-band-inner:last-child {
+    display: none;
   }
 }
