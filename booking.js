@@ -5,51 +5,52 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const EMAIL_TARGET = "contact@phantomcitystudios.com";
+  const EMAIL_TARGET = "info@phantomconcerts.in";
   const INTAKE_URL = "https://phantomcitystudios.com/contact";
   const STORAGE_KEY = "phantom-concerts-booking-draft-v1";
+  let internalEstimate = 0;
 
   const catalog = {
     experience: {
       "flagship-arena": {
-        label: "Flagship Arena",
+        label: "Institutional Flagship",
         price: 180000,
         summary:
-          "Large-format premiere architecture for landmark venues, flagship launches, sponsor-facing moments, and headline cultural positioning."
+          "Flagship live AI + musical spectacle for IITs, universities, cultural institutions, and landmark academic gatherings."
       },
       "touring-theater": {
-        label: "Touring Theater",
+        label: "Corporate Experience",
         price: 95000,
         summary:
-          "A modular touring build for theaters, festivals, and city-to-city deployments with flexible production translation."
+          "Premium live edition for corporate innovation forums, leadership summits, executive showcases, and flagship business gatherings."
       },
       "hybrid-broadcast": {
-        label: "Hybrid Broadcast",
+        label: "Hybrid Forum Edition",
         price: 65000,
         summary:
-          "Broadcast-native show design for mixed physical and digital audiences, streams, launches, and remote participation."
+          "Live + digital format for institutions and corporates that need on-stage impact with hybrid reach and remote participation."
       }
     },
     audience: {
       "up-to-1000": {
         label: "Up to 1,000 guests",
         price: 0,
-        summary: "Designed for private showcases, premium intimate rooms, and focused audience experiences."
+        summary: "Designed for private institutional showcases, premium corporate rooms, and focused audience experiences."
       },
       "1000-5000": {
         label: "1,000 to 5,000 guests",
         price: 20000,
-        summary: "A scalable audience footprint for theaters, branded activations, and public launch moments."
+        summary: "A scalable audience footprint for campuses, conferences, corporate forums, and public knowledge-led showcases."
       },
       "5000-15000": {
         label: "5,000 to 15,000 guests",
         price: 55000,
-        summary: "Structured for headline public experiences, larger premieres, and venue-scale audience choreography."
+        summary: "Structured for flagship institutional showcases, major public experiences, and large-format corporate spectacles."
       },
       "15000-plus": {
         label: "15,000+ guests",
         price: 110000,
-        summary: "Mass-scale audience planning with amplified production, logistics, and systems coordination."
+        summary: "Mass-scale audience planning for destination launches, major forums, and amplified public-private showcase moments."
       }
     },
     region: {
@@ -149,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const nodes = {
     title: document.getElementById("summary-title"),
-    price: document.getElementById("summary-price"),
     subtitle: document.getElementById("summary-subtitle"),
     list: document.getElementById("summary-list"),
     regionChip: document.getElementById("summary-region-chip"),
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const shareUrl = buildShareUrl();
     const shareData = {
       title: "Phantom Concerts configuration",
-      text: `${nodes.title.textContent} | ${nodes.price.textContent} | Continue at ${INTAKE_URL}`,
+      text: `${nodes.title.textContent} | Continue at ${INTAKE_URL}`,
       url: shareUrl
     };
 
@@ -272,13 +272,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function render() {
     const state = getState();
-    const estimate = calculateEstimate();
     const shareUrl = buildShareUrl(false);
     const project = getProjectDetails();
 
+    internalEstimate = calculateEstimate();
     nodes.title.textContent = catalog.experience[state.experience].label;
-    nodes.price.textContent = formatCurrency(estimate);
-    nodes.subtitle.textContent = `${catalog.audience[state.audience].label} in ${catalog.region[state.region].label}`;
+    nodes.subtitle.textContent = `${catalog.audience[state.audience].label} in ${catalog.region[state.region].label}. Commercial terms are aligned after official intake confirmation.`;
     nodes.regionChip.textContent = catalog.region[state.region].label;
     nodes.languageChip.textContent = catalog.language[state.language].label;
     nodes.timelineChip.textContent = catalog.timeline[state.timeline].label;
@@ -341,9 +340,6 @@ document.addEventListener("DOMContentLoaded", () => {
       `${catalog.language[state.language].summary}`,
       `${catalog.timeline[state.timeline].summary}`,
       ...state.modules.map((module) => `${catalog.modules[module].label}: ${catalog.modules[module].summary}`),
-      "",
-      "Estimated Investment",
-      `${formatCurrency(calculateEstimate())}`,
       "",
       "Operational Note",
       "Ticketing, payments, access control, CRM routing, and venue-side integrations are aligned during onboarding based on the confirmed show stack and venue requirements.",
@@ -446,14 +442,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (input) {
       input.checked = true;
     }
-  }
-
-  function formatCurrency(value) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: 0
-    }).format(value);
   }
 
   function buildFileSlug() {

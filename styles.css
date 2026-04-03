@@ -725,6 +725,73 @@ button {
   padding: 1.55rem;
 }
 
+.trailer-card {
+  display: grid;
+  gap: 1rem;
+}
+
+.trailer-frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border: 1px solid rgba(84, 117, 255, 0.18);
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 25%, rgba(255, 53, 203, 0.16), transparent 30%),
+    linear-gradient(180deg, rgba(5, 7, 18, 0.2), rgba(5, 7, 18, 0.72));
+}
+
+.trailer-video,
+.trailer-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.trailer-video {
+  object-fit: cover;
+  filter: saturate(1.08) contrast(1.04);
+  background: #050712;
+}
+
+.trailer-overlay {
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(4, 6, 16, 0.1), rgba(4, 6, 16, 0.28)),
+    radial-gradient(circle at 80% 18%, rgba(36, 216, 255, 0.16), transparent 22%),
+    radial-gradient(circle at 24% 78%, rgba(255, 53, 203, 0.14), transparent 20%);
+}
+
+.trailer-toggle {
+  position: absolute;
+  z-index: 1;
+}
+
+.trailer-toggle {
+  right: 0.9rem;
+  bottom: 0.9rem;
+  min-height: 2.5rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba(84, 117, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(9, 12, 27, 0.72);
+  color: #fff;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-soft);
+}
+
+.trailer-toggle:hover,
+.trailer-toggle:focus-visible {
+  border-color: rgba(36, 216, 255, 0.42);
+}
+
+
 .spotlight-panel h2 {
   margin: 0 0 0.85rem;
   font-size: clamp(1.6rem, 2.5vw, 2.45rem);
@@ -1152,6 +1219,19 @@ button {
   text-transform: uppercase;
 }
 
+.concealed-price {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.option-topline.concealed-price {
+  filter: blur(8px);
+  opacity: 0.9;
+  text-shadow:
+    0 0 18px rgba(36, 216, 255, 0.52),
+    0 0 32px rgba(255, 53, 203, 0.2);
+}
+
 .option-shell strong {
   position: relative;
   display: block;
@@ -1237,6 +1317,14 @@ textarea.field {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.summary-price.concealed-price {
+  filter: blur(14px);
+  opacity: 0.94;
+  text-shadow:
+    0 0 28px rgba(36, 216, 255, 0.26),
+    0 0 56px rgba(255, 53, 203, 0.22);
 }
 
 .summary-subtitle,

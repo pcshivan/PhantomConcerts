@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupHeaderState();
   setupRevealAnimations();
   setupCountdowns();
+  setupTrailerPlayers();
   setupAmbientPointer();
   setCurrentYear();
 });
@@ -149,6 +150,43 @@ function setupAmbientPointer() {
     },
     { passive: true }
   );
+}
+
+function setupTrailerPlayers() {
+  const toggles = document.querySelectorAll("[data-trailer-toggle]");
+
+  toggles.forEach((toggle) => {
+    const targetId = toggle.getAttribute("data-trailer-toggle");
+    const video = targetId ? document.getElementById(targetId) : null;
+
+    if (!video) {
+      return;
+    }
+
+    const syncLabel = () => {
+      const paused = video.paused;
+      toggle.textContent = paused ? "Play" : "Pause";
+      toggle.setAttribute("aria-label", paused ? "Play trailer" : "Pause trailer");
+    };
+
+    toggle.addEventListener("click", async () => {
+      if (video.paused) {
+        try {
+          await video.play();
+        } catch (error) {
+          return;
+        }
+      } else {
+        video.pause();
+      }
+
+      syncLabel();
+    });
+
+    video.addEventListener("play", syncLabel);
+    video.addEventListener("pause", syncLabel);
+    syncLabel();
+  });
 }
 
 function setCurrentYear() {
