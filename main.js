@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupRevealAnimations();
   setupCountdowns();
   setupTrailerPlayers();
+  setupHeroShowcases();
   setupSignalBandMarquee();
   setupAmbientPointer();
   setCurrentYear();
@@ -187,6 +188,200 @@ function setupTrailerPlayers() {
     video.addEventListener("play", syncLabel);
     video.addEventListener("pause", syncLabel);
     syncLabel();
+  });
+}
+
+function setupHeroShowcases() {
+  const showcases = document.querySelectorAll("[data-hero-showcase]");
+
+  if (!showcases.length) {
+    return;
+  }
+
+  showcases.forEach((showcase) => {
+    initializeHeroShowcase(showcase).catch((error) => {
+      console.error("Unable to initialize hero showcase.", error);
+    });
+  });
+}
+
+async function initializeHeroShowcase(showcase) {
+  const image = showcase.querySelector("img");
+  const caption = showcase.querySelector("[data-hero-caption], figcaption");
+
+  if (!image) {
+    return;
+  }
+
+  const source = image.getAttribute("src") || "";
+  const match = source.match(/^(.*\/)?([a-zA-Z_-]*?)(\d+)\.(avif|webp|png|jpe?g)$/i);
+
+  if (!match) {
+    return;
+  }
+
+  const directory = match[1] || "";
+  const baseName = match[2];
+  const parsedStartIndex = Number.parseInt(match[3], 10);
+  const extension = match[4];
+  const configuredStartIndex = Number.parseInt(showcase.getAttribute("data-show-sequence-start") || "", 10);
+  const configuredInitialIndex = Number.parseInt(showcase.getAttribute("data-show-initial-index") || "", 10);
+  const startIndex =
+    Number.isFinite(configuredStartIndex) && configuredStartIndex > 0 ? configuredStartIndex : parsedStartIndex;
+  const initialIndex =
+    Number.isFinite(configuredInitialIndex) && configuredInitialIndex > 0 ? configuredInitialIndex : parsedStartIndex;
+  const configuredInterval = Number.parseInt(showcase.getAttribute("data-show-interval") || "", 10);
+  const intervalMs = Number.isFinite(configuredInterval) && configuredInterval >= 1800 ? configuredInterval : 3600;
+  const configuredProbeLimit = Number.parseInt(showcase.getAttribute("data-show-probe-limit") || "", 10);
+  const probeLimit = Number.isFinite(configuredProbeLimit) && configuredProbeLimit >= 2 ? configuredProbeLimit : 18;
+  const reducedMotion =
+    typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const defaultAlt = image.getAttribute("alt") || "Phantom Concerts stage visual";
+  const frames = await collectHeroShowcaseFrames(showcase, directory, baseName, extension, startIndex, probeLimit, defaultAlt);
+
+  if (!frames.length) {
+    return;
+  }
+
+  let activeIndex = frames.findIndex((frame) => frame.index === initialIndex);
+
+  if (activeIndex < 0) {
+    activeIndex = 0;
+  }
+
+  syncHeroShowcaseFrame({
+    image,
+    caption,
+    frame: frames[activeIndex]
+  });
+
+  if (frames.length < 2 || reducedMotion) {
+    return;
+  }
+  let intervalId = 0;
+
+  const stopRotation = () => {
+    if (!intervalId) {
+      return;
+    }
+
+    window.clearInterval(intervalId);
+    intervalId = 0;
+  };
+
+  const swapFrame = (nextIndex) => {
+    if (nextIndex === activeIndex || !frames[nextIndex]) {
+      return;
+    }
+
+    activeIndex = nextIndex;
+    image.classList.add("is-transitioning");
+    if (caption) {
+      caption.classList.add("is-transitioning");
+    }
+
+    window.setTimeout(() => {
+      syncHeroShowcaseFrame({
+        image,
+        caption,
+        frame: frames[nextIndex]
+      });
+
+      window.requestAnimationFrame(() => {
+        image.classList.remove("is-transitioning");
+        if (caption) {
+          caption.classList.remove("is-transitioning");
+        }
+      });
+    }, 180);
+  };
+
+  const startRotation = () => {
+    if (document.hidden || intervalId) {
+      return;
+    }
+
+    intervalId = window.setInterval(() => {
+      swapFrame((activeIndex + 1) % frames.length);
+    }, intervalMs);
+  };
+
+  showcase.addEventListener("pointerenter", stopRotation);
+  showcase.addEventListener("pointerleave", startRotation);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      stopRotation();
+      return;
+    }
+
+    startRotation();
+  });
+
+  startRotation();
+}
+
+async function collectHeroShowcaseFrames(showcase, directory, baseName, extension, startIndex, probeLimit, defaultAlt) {
+  const frames = [];
+
+  for (let index = startIndex; index < startIndex + probeLimit; index += 1) {
+    const src = `${directory}${baseName}${index}.${extension}`;
+
+    try {
+      await preloadHeroShowcaseFrame(src);
+      frames.push({
+        index,
+        src,
+        caption: getHeroShowcaseCaption(showcase, index, defaultAlt),
+        alt: defaultAlt
+      });
+    } catch (error) {
+      if (frames.length) {
+        break;
+      }
+    }
+  }
+
+  return frames;
+}
+
+function getHeroShowcaseCaption(showcase, index, fallbackCaption) {
+  return showcase.getAttribute(`data-show-caption-${index}`) || fallbackCaption;
+}
+
+function syncHeroShowcaseFrame({ image, caption, frame }) {
+  image.src = frame.src;
+  image.alt = frame.alt;
+
+  if (caption && frame.caption) {
+    caption.textContent = frame.caption;
+  }
+}
+
+function preloadHeroShowcaseFrame(src) {
+  return new Promise((resolve, reject) => {
+    const probe = new Image();
+    const timeoutId = window.setTimeout(() => {
+      cleanup();
+      reject(new Error(`Timed out while loading ${src}.`));
+    }, 4500);
+
+    const cleanup = () => {
+      window.clearTimeout(timeoutId);
+      probe.onload = null;
+      probe.onerror = null;
+    };
+
+    probe.onload = () => {
+      cleanup();
+      resolve(probe);
+    };
+
+    probe.onerror = () => {
+      cleanup();
+      reject(new Error(`Unable to load ${src}.`));
+    };
+
+    probe.src = src;
   });
 }
 

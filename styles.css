@@ -373,9 +373,9 @@ button {
 }
 
 .brand img {
-  width: 6rem;
-  height: 4rem;
-  object-fit: fill;
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
   border-radius: 50%;
   box-shadow: 0 0 26px rgba(255, 53, 203, 0.18);
 }
@@ -574,7 +574,7 @@ button {
 .hero-grid {
   position: relative;
   grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
-  align-items: center;
+  align-items: stretch;
 }
 
 .booking-hero-grid {
@@ -591,6 +591,9 @@ button {
 
 .hero-copy {
   max-width: 48rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .booking-display-title {
@@ -631,6 +634,10 @@ button {
   margin-top: 1.45rem;
 }
 
+.hero-launch-card {
+  margin-top: auto;
+}
+
 .signal-chip,
 .summary-chip {
   display: inline-flex;
@@ -645,13 +652,25 @@ button {
 }
 
 .hero-stage {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   gap: 1rem;
+  height: 100%;
 }
 
 .hero-stage-stack {
   display: grid;
   gap: 1rem;
+  align-content: start;
+}
+
+.hero-stage-showcase {
+  isolation: isolate;
+  width: 110%;
+  max-width: none;
+  margin: 0;
+  align-self: flex-start;
 }
 
 .masked-panel,
@@ -716,6 +735,7 @@ button {
 }
 
 .spotlight-panel,
+.hero-launch-card,
 .hero-next-card,
 .countdown-card,
 .summary-card,
@@ -723,6 +743,11 @@ button {
 .booking-hero-note {
   border-radius: var(--radius-lg);
   padding: 1.55rem;
+}
+
+.hero-launch-card {
+  display: grid;
+  gap: 0.9rem;
 }
 
 .trailer-card {
@@ -829,23 +854,63 @@ button {
 }
 
 .hero-media-card img {
+  display: block;
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
   filter: saturate(1.12) contrast(1.02);
+  transition:
+    opacity 540ms ease,
+    transform 780ms ease,
+    filter 520ms ease;
+}
+
+.hero-stage-showcase img.is-transitioning {
+  opacity: 0.68;
+  transform: scale(1.018);
+  filter: saturate(1.06) contrast(1.01);
 }
 
 .hero-media-card figcaption {
   padding: 1rem 1.2rem 1.2rem;
   color: var(--muted);
   font-size: 0.94rem;
+  transition:
+    opacity 320ms ease,
+    transform 420ms ease;
 }
 
+.hero-media-card figcaption.is-transitioning {
+  opacity: 0.42;
+  transform: translateY(6px);
+}
+
+.hero-stage-actions {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0.2rem auto 0;
+}
+
+.hero-stage-actions .button {
+  min-width: 14rem;
+  justify-content: center;
+}
+
+.hero-launch-card h3,
 .hero-next-card h3 {
   margin: 0 0 0.65rem;
   font-size: 1.45rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+}
+
+.hero-launch-card p:last-of-type {
+  color: var(--muted);
+}
+
+.hero-stage .spotlight-panel {
+  margin-top: auto;
 }
 
 .mini-stat {
@@ -1086,11 +1151,16 @@ button {
 
 .format-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  grid-auto-rows: 1fr;
 }
 
 .format-card {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
   border-radius: var(--radius-lg);
 }
 
@@ -1106,6 +1176,7 @@ button {
   flex: 1;
   flex-direction: column;
   gap: 1rem;
+  min-height: 100%;
   padding: 1.4rem;
 }
 
@@ -1494,6 +1565,13 @@ textarea.field {
   display: grid;
   gap: 1rem;
   margin-top: 1.65rem;
+  grid-column: 1 / -1;
+  width: min(calc(100% - 3.1rem), 76rem);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  justify-items: center;
+  justify-self: center;
 }
 
 .site-footer {
@@ -1526,6 +1604,33 @@ textarea.field {
   margin-bottom: 0.85rem;
 }
 
+.footer-studio-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.95rem;
+  color: rgba(232, 238, 255, 0.88);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.96rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.45;
+  text-transform: none;
+}
+
+.footer-studio-credit img {
+  width: 4.7rem;
+  height: 4.7rem;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px rgba(81, 229, 255, 0.2));
+}
+
+.footer-studio-credit span {
+  display: inline-block;
+  max-width: 44ch;
+}
+
 .footer-copy {
   max-width: 34ch;
   color: var(--muted);
@@ -1547,6 +1652,10 @@ textarea.field {
 }
 
 .site-footer a:hover {
+  color: #fff;
+}
+
+.footer-studio-credit:hover {
   color: #fff;
 }
 
@@ -1640,6 +1749,10 @@ textarea.field {
   .summary-card {
     position: static;
   }
+
+  .hero-stage-showcase {
+    width: 100%;
+  }
 }
 
 @media (max-width: 860px) {
@@ -1711,6 +1824,10 @@ textarea.field {
   .summary-link-row {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .hero-stage-actions .button {
+    min-width: 0;
   }
 
   .button {

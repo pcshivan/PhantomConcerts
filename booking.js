@@ -24,11 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
         summary:
           "Premium live edition for corporate innovation forums, leadership summits, executive showcases, and flagship business gatherings."
       },
-      "hybrid-broadcast": {
-        label: "Hybrid Forum Edition",
-        price: 65000,
+      "global-iconic": {
+        label: "Global Iconic Edition",
+        price: 750000,
         summary:
-          "Live + digital format for institutions and corporates that need on-stage impact with hybrid reach and remote participation."
+          "A no-compromise global edition for celebrities, conglomerates, sovereign platforms, cultural icons, and flagship hosts who expect the absolute highest production standard."
+      },
+      "hybrid-broadcast": {
+        label: "Global Iconic Edition",
+        price: 750000,
+        summary:
+          "Legacy alias for the Global Iconic Edition, preserved for older links and saved briefs."
       }
     },
     audience: {
@@ -67,12 +73,12 @@ document.addEventListener("DOMContentLoaded", () => {
       "north-america": {
         label: "North America",
         price: 32000,
-        summary: "Supports theater runs, hybrid experiences, and premium launch cycles across major North American markets."
+        summary: "Supports theater runs, prestige branded experiences, and icon-led launch cycles across major North American markets."
       },
       "multi-city-global": {
         label: "Multi-city global rollout",
         price: 70000,
-        summary: "Built for repeatability, transfer packs, touring logic, and cross-market operational coordination."
+        summary: "Built for elite repeatability, transfer packs, touring command, and cross-market operational coordination."
       }
     },
     language: {
@@ -133,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "live-broadcast": {
         label: "Live broadcast system",
         price: 28000,
-        summary: "Streaming scenes, camera logic, and remote audience narrative control."
+        summary: "Broadcast capture, prestige stream scenes, and global audience narrative control."
       },
       "ticketing-ops": {
         label: "Ticketing and access planning",
@@ -142,8 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       "vip-merch": {
         label: "VIP and merch programming",
-        price: 10000,
-        summary: "Premium guest moments, merch strategy, and sponsor-aligned commercial layers."
+        price: 45000,
+        summary: "A-list hospitality, collector-grade merchandise, concierge gifting, and prestige guest programming."
       }
     }
   };
@@ -382,7 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function hydrateFromQuery() {
     const params = new URLSearchParams(window.location.search);
 
-    applySingle("experience", params.get("experience"));
+    applySingle("experience", normalizeExperienceValue(params.get("experience")));
     applySingle("audience", params.get("audience"));
     applySingle("region", params.get("region"));
     applySingle("language", params.get("language"));
@@ -409,7 +415,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      applySingle("experience", draft.experience);
+      applySingle("experience", normalizeExperienceValue(draft.experience));
       applySingle("audience", draft.audience);
       applySingle("region", draft.region);
       applySingle("language", draft.language);
@@ -442,6 +448,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (input) {
       input.checked = true;
     }
+  }
+
+  function normalizeExperienceValue(value) {
+    if (value === "hybrid-broadcast") {
+      return "global-iconic";
+    }
+
+    return value;
   }
 
   function buildFileSlug() {
