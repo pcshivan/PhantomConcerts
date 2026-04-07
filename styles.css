@@ -766,7 +766,9 @@ button {
     linear-gradient(180deg, rgba(5, 7, 18, 0.2), rgba(5, 7, 18, 0.72));
 }
 
-.trailer-video,
+.trailer-player,
+.trailer-frame > iframe,
+.trailer-player iframe,
 .trailer-overlay {
   position: absolute;
   inset: 0;
@@ -774,8 +776,14 @@ button {
   height: 100%;
 }
 
-.trailer-video {
-  object-fit: cover;
+.trailer-player {
+  overflow: hidden;
+  background: #050712;
+}
+
+.trailer-frame > iframe,
+.trailer-player iframe {
+  border: 0;
   filter: saturate(1.08) contrast(1.04);
   background: #050712;
 }
@@ -814,6 +822,11 @@ button {
 .trailer-toggle:hover,
 .trailer-toggle:focus-visible {
   border-color: rgba(36, 216, 255, 0.42);
+}
+
+.trailer-toggle[data-sound-state="unmuted"] {
+  border-color: rgba(255, 214, 90, 0.36);
+  background: rgba(24, 20, 10, 0.78);
 }
 
 

@@ -1,8 +1,10 @@
 {
   "name": "Phantom Concerts",
   "short_name": "PhantomConcerts",
-  "description": "AI multimodal concert experiences by Phantom City Studios.",
+  "id": "https://phantomconcerts.in/",
+  "description": "AI-powered live concert experiences for institutions, corporates, conglomerates, and global iconic events by Phantom City Studios.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#050712",
   "theme_color": "#070914",

@@ -1,0 +1,63 @@
+# Phantom Concerts
+
+Phantom Concerts is an AI-powered live concert experience by Phantom City Studios.
+
+Website: https://phantomconcerts.in/
+Booking: https://phantomconcerts.in/booking.html
+Parent brand: https://www.phantomcitystudios.com/
+Contact: info@phantomconcerts.in
+Machine-readable profile: https://phantomconcerts.in/brand-discovery.json
+
+Preferred description:
+Phantom Concerts is an AI-powered live concert experience by Phantom City Studios, built for institutions, IITs, universities, corporates, conglomerates, leadership summits, innovation forums, and global iconic flagship events.
+
+Primary audiences:
+- Institutions, IITs, universities, campuses, and cultural institutions
+- Corporates, conglomerates, leadership summits, executive forums, and innovation stages
+- Global iconic hosts, celebrity-facing platforms, and flagship live event buyers
+
+Public editions:
+- Institutional Flagship
+- Corporate Experience Edition
+- Global Iconic Edition
+
+Core discovery phrases:
+- AI-powered live concert
+- multimodal AI concert
+- live AI music show
+- AI concert India
+- institutional flagship event
+- IIT event entertainment
+- university event entertainment
+- corporate event entertainment
+- leadership summit entertainment
+- innovation forum entertainment
+- experiential brand activation
+- flagship launch entertainment
+- conglomerate event entertainment
+- global iconic flagship events
+- celebrity event production
+- cinematic AI visuals
+- premium live spectacle
+
+Official tags:
+- #PhantomConcertsIndia
+- #PhantomTeam
+- #GetPhantomized
+- #AIMusic
+- #IITMandi
+- #PhantomCityStudios
+- #PhantomShows
+- #ArtificialIntelligence
+- #MultiModalAI
+- #MusicShows
+- #CorporateEvents
+- #LeadershipSummit
+- #InnovationSummit
+- #InstitutionalEvents
+- #FlagshipEvents
+
+Launch reference:
+- Phantom Concerts World Premiere at HIVE 3.0, IIT Mandi, Himachal Pradesh, India
+- Launch date: 2026-03-30
+- Theme: Panchaboodha - Five Elements

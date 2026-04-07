@@ -1,0 +1,89 @@
+{
+  "brand": "Phantom Concerts",
+  "website": "https://phantomconcerts.in/",
+  "booking_page": "https://phantomconcerts.in/booking.html",
+  "parent_brand": "Phantom City Studios",
+  "parent_website": "https://www.phantomcitystudios.com/",
+  "contact": {
+    "email": "info@phantomconcerts.in"
+  },
+  "description": "Phantom Concerts is an AI-powered live concert experience by Phantom City Studios, built for institutions, IITs, universities, corporates, conglomerates, leadership summits, innovation forums, and global iconic flagship events.",
+  "audiences": [
+    "Institutions, IITs, universities, campuses, and cultural institutions",
+    "Corporates, conglomerates, leadership summits, executive forums, and innovation stages",
+    "Global iconic hosts, celebrity-facing platforms, and flagship live event buyers"
+  ],
+  "offerings": [
+    {
+      "name": "Institutional Flagship",
+      "ideal_for": "IITs, universities, cultural institutions, and landmark academic stages",
+      "focus": [
+        "Infotainment spectacle with live music",
+        "Theme-led storytelling and cinematic AI visuals",
+        "Dignitary, delegate, and campus-ready staging"
+      ]
+    },
+    {
+      "name": "Corporate Experience Edition",
+      "ideal_for": "Leadership summits, innovation forums, client showcases, and executive stages",
+      "focus": [
+        "Experiential executive entertainment",
+        "Live AI demonstration with polished brand command",
+        "Convention, summit, and flagship event scalable solutions"
+      ]
+    },
+    {
+      "name": "Global Iconic Edition",
+      "ideal_for": "Global celebrities, conglomerates, cultural icons, and flagship hosts",
+      "focus": [
+        "Celebrity, icon, and chairman-level guest architecture",
+        "Luxury-grade staging, creative direction, and bespoke show command",
+        "No-compromise global orchestration across talent, venue, security, and spectacle"
+      ]
+    }
+  ],
+  "keywords": [
+    "Phantom Concerts India",
+    "phantomconcerts.in",
+    "Phantom City Studios",
+    "AI concert India",
+    "AI-powered live concert",
+    "multimodal AI concert",
+    "live AI music show",
+    "institutional event entertainment",
+    "IIT event entertainment",
+    "university event entertainment",
+    "corporate event entertainment",
+    "leadership summit entertainment",
+    "innovation forum entertainment",
+    "experiential brand activation",
+    "flagship live spectacle",
+    "conglomerate event entertainment",
+    "celebrity event production",
+    "global iconic events",
+    "IIT Mandi"
+  ],
+  "hashtags": [
+    "#PhantomConcertsIndia",
+    "#PhantomTeam",
+    "#GetPhantomized",
+    "#AIMusic",
+    "#IITMandi",
+    "#PhantomCityStudios",
+    "#PhantomShows",
+    "#ArtificialIntelligence",
+    "#MultiModalAI",
+    "#MusicShows",
+    "#CorporateEvents",
+    "#LeadershipSummit",
+    "#InnovationSummit",
+    "#InstitutionalEvents",
+    "#FlagshipEvents"
+  ],
+  "launch_reference": {
+    "name": "Phantom Concerts World Premiere at HIVE 3.0",
+    "date": "2026-03-30",
+    "location": "IIT Mandi, Himachal Pradesh, India",
+    "theme": "Panchaboodha - Five Elements"
+  }
+}
