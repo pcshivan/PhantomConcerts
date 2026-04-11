@@ -194,7 +194,9 @@
 
       <section class="section">
         <div class="container booking-shell">
-          <form class="booking-form" id="booking-form">
+          <form class="booking-form" id="booking-form" action="https://formspree.io/f/xldnnovk" method="POST">
+            <input type="hidden" name="_subject" value="New Phantom Concerts Booking Request" />
+            <input type="hidden" name="page_title" value="Book Phantom Concerts" />
             <section class="builder-card" data-reveal>
               <div class="builder-card-header">
                 <p class="eyebrow">Configuration</p>
@@ -452,27 +454,36 @@
               <div class="contact-grid">
                 <label class="field-label">
                   <span>Your name</span>
-                  <input class="field" type="text" name="clientName" placeholder="Your full name" />
+                  <input class="field" type="text" name="clientName" placeholder="Your full name" autocomplete="name" required />
                 </label>
                 <label class="field-label">
                   <span>Institution, corporate, or venue</span>
-                  <input class="field" type="text" name="companyName" placeholder="Organization name" />
+                  <input class="field" type="text" name="companyName" placeholder="Organization name" autocomplete="organization" required />
                 </label>
                 <label class="field-label">
                   <span>Email</span>
-                  <input class="field" type="email" name="emailAddress" placeholder="name@company.com" />
+                  <input class="field" type="email" name="emailAddress" placeholder="name@company.com" autocomplete="email" required />
                 </label>
                 <label class="field-label">
                   <span>Phone or WhatsApp</span>
-                  <input class="field" type="tel" name="phoneNumber" placeholder="+91 ..." />
+                  <input
+                    class="field"
+                    type="tel"
+                    name="phoneNumber"
+                    placeholder="+91 ..."
+                    inputmode="tel"
+                    autocomplete="tel"
+                    pattern="[\d\s()+-]{7,20}"
+                    required
+                  />
                 </label>
                 <label class="field-label">
                   <span>Target city</span>
-                  <input class="field" type="text" name="eventCity" placeholder="Mandi, Bengaluru, Dubai..." />
+                  <input class="field" type="text" name="eventCity" placeholder="Mandi, Bengaluru, Dubai..." autocomplete="address-level2" required />
                 </label>
                 <label class="field-label">
                   <span>Target date</span>
-                  <input class="field" type="date" name="eventDate" />
+                  <input class="field" type="date" name="eventDate" required />
                 </label>
                 <label class="field-label full-width">
                   <span>Notes</span>
@@ -508,14 +519,7 @@
             <ul class="summary-list" id="summary-list"></ul>
 
             <div class="summary-actions">
-              <button class="button primary" id="email-brief" type="button">Email This Brief</button>
-              <a
-                class="button secondary"
-                href="https://phantomcitystudios.com/contact"
-                target="_blank"
-                rel="noreferrer"
-                >Continue to Official Intake</a
-              >
+              <button class="button primary" id="email-brief" type="submit" form="booking-form">Send Booking Brief</button>
               <button class="button ghost" id="download-brief" type="button">Download Brief</button>
             </div>
 
@@ -550,9 +554,8 @@
           <div class="booking-note-banner">
             <p class="eyebrow">JavaScript disabled</p>
             <p>
-              The interactive brief generator requires JavaScript. You can still continue through the
-              official intake at
-              <a class="contact-link" href="https://phantomcitystudios.com/contact">phantomcitystudios.com/contact</a>.
+              The live brief generator requires JavaScript, but you can still complete the official booking
+              intake directly on this page using the Send Booking Brief button.
             </p>
           </div>
         </noscript>
@@ -591,9 +594,7 @@
         <div>
           <p class="footer-title">Contact</p>
           <a href="mailto:info@phantomconcerts.in">info@phantomconcerts.in</a>
-          <a href="https://phantomcitystudios.com/contact" target="_blank" rel="noreferrer"
-            >Official contact page</a
-          >
+          <a href="#booking-form">Booking configurator</a>
           <a href="https://phantomcitystudios.com" target="_blank" rel="noreferrer">Phantom City Studios</a>
         </div>
 
