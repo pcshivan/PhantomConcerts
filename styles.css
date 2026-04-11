@@ -1733,6 +1733,12 @@ textarea.field {
   transform: translateY(0);
 }
 
+.page-booking [data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 @keyframes raySweep {
   0% {
     transform: translate3d(-4%, 0, 0) scale(1.02);
