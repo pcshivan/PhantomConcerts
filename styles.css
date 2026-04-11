@@ -326,6 +326,12 @@ button {
   border-color: rgba(36, 216, 255, 0.42);
 }
 
+.button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
+}
+
 .text-link,
 .contact-link,
 .summary-action.text-link-button {
@@ -1567,6 +1573,14 @@ textarea.field {
 
 .summary-status.is-warn {
   color: #ffb6e9;
+}
+
+.summary-status.is-info {
+  color: #ffe39f;
+}
+
+.summary-status.is-error {
+  color: #ff9dbf;
 }
 
 .summary-meta {

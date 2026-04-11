@@ -5,9 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const EMAIL_TARGET = "info@phantomconcerts.in";
-  const INTAKE_URL = "https://phantomcitystudios.com/contact";
+  const FORM_ENDPOINT = "https://formspree.io/f/xldnnovk";
+  const ROUTING_EMAIL = "info@phantomconcerts.in";
   const STORAGE_KEY = "phantom-concerts-booking-draft-v1";
+  const SUBMIT_BUTTON_LABEL = "Send Booking Brief";
   let internalEstimate = 0;
 
   const catalog = {
@@ -162,12 +163,14 @@ document.addEventListener("DOMContentLoaded", () => {
     languageChip: document.getElementById("summary-language-chip"),
     timelineChip: document.getElementById("summary-timeline-chip"),
     status: document.getElementById("brief-status"),
-    email: document.getElementById("email-brief"),
+    send: document.getElementById("email-brief"),
     download: document.getElementById("download-brief"),
     copy: document.getElementById("copy-brief"),
     share: document.getElementById("share-config")
   };
 
+  form.setAttribute("action", FORM_ENDPOINT);
+  setDateFieldFloor();
   hydrateFromQuery();
   hydrateFromStorage();
   render();
@@ -179,11 +182,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("input", render);
 
-  nodes.email.addEventListener("click", () => {
-    const subject = buildEmailSubject();
-    const body = buildBriefText();
-    window.location.href = `mailto:${EMAIL_TARGET}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setStatus("Your email app should open with the Phantom Concerts booking brief.", "success");
+  form.addEventListener("submit", async (event) => {
+    trimProjectDetails();
+    syncSubmissionMetadata(true);
+
+    if (typeof window.fetch !== "function") {
+      return;
+    }
+
+    event.preventDefault();
+
+    const isValid =
+      typeof form.reportValidity === "function" ? form.reportValidity() : form.checkValidity();
+
+    if (!isValid) {
+      setStatus("Complete the required intake details before sending the booking brief.", "error");
+      return;
+    }
+
+    setSubmissionState(true);
+    setStatus("Sending your Phantom Concerts booking brief through the official intake channel...", "info");
+
+    try {
+      const response = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        body: new FormData(form),
+        headers: {
+          Accept: "application/json"
+        }
+      });
+
+      if (!response.ok) {
+        let message = "We could not send the booking brief right now. Please try again in a moment.";
+
+        try {
+          const errorData = await response.json();
+
+          if (Array.isArray(errorData.errors) && errorData.errors.length) {
+            message = errorData.errors.map((error) => error.message).join(" ");
+          }
+        } catch (error) {
+          console.error("Unable to parse booking intake error response.", error);
+        }
+
+        throw new Error(message);
+      }
+
+      setStatus(
+        "Your Phantom Concerts booking brief has been sent successfully. Our team will review the full configuration and contact you shortly.",
+        "success"
+      );
+    } catch (error) {
+      console.error("Booking brief submission failed.", error);
+      setStatus(
+        error instanceof Error && error.message
+          ? error.message
+          : "An unexpected error occurred while sending the booking brief.",
+        "error"
+      );
+    } finally {
+      setSubmissionState(false);
+      syncSubmissionMetadata();
+    }
   });
 
   nodes.download.addEventListener("click", () => {
@@ -212,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const shareUrl = buildShareUrl();
     const shareData = {
       title: "Phantom Concerts configuration",
-      text: `${nodes.title.textContent} | Continue at ${INTAKE_URL}`,
+      text: `${nodes.title.textContent} | Continue the Phantom Concerts configuration`,
       url: shareUrl
     };
 
@@ -263,6 +323,25 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
+  function getModuleLabels(state) {
+    return state.modules.map((module) => catalog.modules[module].label);
+  }
+
+  function getMissingRequiredProjectFields(project = getProjectDetails()) {
+    const requiredFields = [
+      ["clientName", "your name"],
+      ["companyName", "institution or venue"],
+      ["emailAddress", "email"],
+      ["phoneNumber", "phone or WhatsApp"],
+      ["eventCity", "target city"],
+      ["eventDate", "target date"]
+    ];
+
+    return requiredFields
+      .filter(([key]) => !project[key])
+      .map(([, label]) => label);
+  }
+
   function calculateEstimate() {
     const state = getState();
     const moduleTotal = state.modules.reduce((sum, key) => sum + catalog.modules[key].price, 0);
@@ -280,6 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const state = getState();
     const shareUrl = buildShareUrl(false);
     const project = getProjectDetails();
+    const missingFields = getMissingRequiredProjectFields(project);
 
     internalEstimate = calculateEstimate();
     nodes.title.textContent = catalog.experience[state.experience].label;
@@ -299,33 +379,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
     nodes.list.innerHTML = items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 
-    if (project.clientName || project.companyName || project.eventCity) {
+    if (!missingFields.length) {
       setStatus(
-        `Brief is ready for ${project.clientName || project.companyName || "your team"}${project.eventCity ? ` in ${project.eventCity}` : ""}.`,
+        `Brief is intake-ready for ${project.companyName || project.clientName}${project.eventCity ? ` in ${project.eventCity}` : ""}.`,
         "success"
       );
     } else {
-      setStatus("Add project details to personalize the brief before sending.", "warn");
+      setStatus(`Add ${formatFieldList(missingFields)} to send the official booking brief.`, "warn");
     }
 
+    syncSubmissionMetadata();
     history.replaceState({}, "", shareUrl);
   }
 
   function buildBriefText() {
     const state = getState();
     const project = getProjectDetails();
-    const modules = state.modules.length ? state.modules.map((module) => catalog.modules[module].label).join(", ") : "No extra modules selected";
+    const moduleLabels = getModuleLabels(state);
+    const modules = moduleLabels.length ? moduleLabels.join(", ") : "No extra modules selected";
 
     return [
       "Phantom Concerts Booking Brief",
       "",
-      "Routing",
-      `Official intake: ${INTAKE_URL}`,
-      `Official email: ${EMAIL_TARGET}`,
+      "Submission Source",
+      `Booking page: ${window.location.href}`,
+      `Shareable configuration: ${buildShareUrl(false)}`,
+      `Routing email: ${ROUTING_EMAIL}`,
       "",
       "Project Contact",
       `Name: ${project.clientName || "Not provided"}`,
-      `Company or venue: ${project.companyName || "Not provided"}`,
+      `Institution or venue: ${project.companyName || "Not provided"}`,
       `Email: ${project.emailAddress || "Not provided"}`,
       `Phone or WhatsApp: ${project.phoneNumber || "Not provided"}`,
       `Target city: ${project.eventCity || "Not provided"}`,
@@ -359,7 +442,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const state = getState();
     const project = getProjectDetails();
     const city = project.eventCity || "Global";
-    return `Phantom Concerts Booking Request | ${catalog.experience[state.experience].label} | ${city}`;
+    return `New Phantom Concerts Booking Request | ${catalog.experience[state.experience].label} | ${city}`;
   }
 
   function buildShareUrl(pushToHistory = true) {
@@ -458,6 +541,108 @@ document.addEventListener("DOMContentLoaded", () => {
     return value;
   }
 
+  function trimProjectDetails() {
+    [
+      "clientName",
+      "companyName",
+      "emailAddress",
+      "phoneNumber",
+      "eventCity",
+      "notes"
+    ].forEach((fieldName) => {
+      const field = form.elements.namedItem(fieldName);
+
+      if (field && "value" in field && typeof field.value === "string") {
+        field.value = field.value.trim();
+      }
+    });
+  }
+
+  function setDateFieldFloor() {
+    const dateField = form.elements.namedItem("eventDate");
+
+    if (!dateField || !("min" in dateField)) {
+      return;
+    }
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    dateField.min = `${year}-${month}-${day}`;
+  }
+
+  function setFormFieldValue(fieldName, fieldValue) {
+    let field = form.elements.namedItem(fieldName);
+
+    if (!field) {
+      field = document.createElement("input");
+      field.type = "hidden";
+      field.name = fieldName;
+      form.prepend(field);
+    }
+
+    if (field && "value" in field) {
+      field.value = fieldValue;
+    }
+  }
+
+  function syncSubmissionMetadata(stampSubmission = false) {
+    const state = getState();
+    const project = getProjectDetails();
+    const moduleLabels = getModuleLabels(state);
+    const experienceLabel = catalog.experience[state.experience].label;
+    const briefText = buildBriefText();
+
+    setFormFieldValue("_replyto", project.emailAddress);
+    setFormFieldValue("_subject", buildEmailSubject());
+    setFormFieldValue("page_title", document.title);
+    setFormFieldValue("page_url", window.location.href);
+    setFormFieldValue("booking_source", "Phantom Concerts Booking Configurator");
+    setFormFieldValue("share_url", buildShareUrl(false));
+    setFormFieldValue("brief_title", nodes.title.textContent || experienceLabel);
+    setFormFieldValue("brief_subtitle", nodes.subtitle.textContent || "");
+    setFormFieldValue("experience_label", experienceLabel);
+    setFormFieldValue("audience_label", catalog.audience[state.audience].label);
+    setFormFieldValue("region_label", catalog.region[state.region].label);
+    setFormFieldValue("language_label", catalog.language[state.language].label);
+    setFormFieldValue("timeline_label", catalog.timeline[state.timeline].label);
+    setFormFieldValue("modules_selected", moduleLabels.length ? moduleLabels.join(", ") : "No extra modules selected");
+    setFormFieldValue("modules_count", String(state.modules.length));
+    setFormFieldValue("booking_brief", briefText);
+
+    // Canonical aliases matching the main Phantom City Studios contact intake.
+    setFormFieldValue("name", project.clientName);
+    setFormFieldValue("email", project.emailAddress);
+    setFormFieldValue("mobile", project.phoneNumber);
+    setFormFieldValue("service_interest", `Phantom Concerts Booking - ${experienceLabel}`);
+    setFormFieldValue("details", briefText);
+
+    // Human-readable booking-specific aliases for the intake email body.
+    setFormFieldValue("institution_or_venue", project.companyName);
+    setFormFieldValue("target_city", project.eventCity);
+    setFormFieldValue("target_date", project.eventDate);
+    setFormFieldValue("additional_notes", project.notes || "None provided.");
+    setFormFieldValue("concert_format", experienceLabel);
+    setFormFieldValue("audience_scale", catalog.audience[state.audience].label);
+    setFormFieldValue("geography", catalog.region[state.region].label);
+    setFormFieldValue("language_setup", catalog.language[state.language].label);
+    setFormFieldValue("delivery_pace", catalog.timeline[state.timeline].label);
+
+    if (stampSubmission) {
+      setFormFieldValue("submitted_at", new Date().toISOString());
+    }
+  }
+
+  function setSubmissionState(isSubmitting) {
+    form.setAttribute("aria-busy", String(isSubmitting));
+
+    if (nodes.send) {
+      nodes.send.disabled = isSubmitting;
+      nodes.send.textContent = isSubmitting ? "Sending..." : SUBMIT_BUTTON_LABEL;
+    }
+  }
+
   function buildFileSlug() {
     const project = getProjectDetails();
     const preferred = project.companyName || project.eventCity || "phantom-concerts";
@@ -476,16 +661,34 @@ document.addEventListener("DOMContentLoaded", () => {
       .replaceAll("'", "&#39;");
   }
 
+  function formatFieldList(fields) {
+    if (fields.length === 1) {
+      return fields[0];
+    }
+
+    if (fields.length === 2) {
+      return `${fields[0]} and ${fields[1]}`;
+    }
+
+    return `${fields.slice(0, -1).join(", ")}, and ${fields[fields.length - 1]}`;
+  }
+
   function setStatus(message, tone) {
+    if (!nodes.status) {
+      return;
+    }
+
     nodes.status.textContent = message;
-    nodes.status.classList.remove("is-success", "is-warn");
+    nodes.status.classList.remove("is-success", "is-warn", "is-info", "is-error");
 
     if (tone === "success") {
       nodes.status.classList.add("is-success");
-    }
-
-    if (tone === "warn") {
+    } else if (tone === "warn") {
       nodes.status.classList.add("is-warn");
+    } else if (tone === "info") {
+      nodes.status.classList.add("is-info");
+    } else if (tone === "error") {
+      nodes.status.classList.add("is-error");
     }
   }
 });
