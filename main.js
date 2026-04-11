@@ -1,14 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
-  setupNavigation();
-  setupHeaderState();
-  setupRevealAnimations();
-  setupCountdowns();
-  setupTrailerPlayers();
-  setupHeroShowcases();
-  setupSignalBandMarquee();
-  setupAmbientPointer();
-  setCurrentYear();
+  runSafely(setupNavigation);
+  runSafely(setupHeaderState);
+  runSafely(setupRevealAnimations);
+  runSafely(setupCountdowns);
+  runSafely(setupTrailerPlayers);
+  runSafely(setupHeroShowcases);
+  runSafely(setupSignalBandMarquee);
+  runSafely(setupAmbientPointer);
+  runSafely(setCurrentYear);
 });
+
+function runSafely(setupFn) {
+  try {
+    setupFn();
+  } catch (error) {
+    console.error(`Unable to initialize ${setupFn.name || "page behavior"}.`, error);
+  }
+}
 
 function setupNavigation() {
   const navToggle = document.querySelector(".nav-toggle");
@@ -58,22 +66,37 @@ function setupHeaderState() {
 }
 
 function setupRevealAnimations() {
-  const revealItems = document.querySelectorAll("[data-reveal]");
+  const revealItems = Array.from(document.querySelectorAll("[data-reveal]"));
 
   if (!revealItems.length) {
     return;
   }
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
-    revealItems.forEach((item) => item.classList.add("is-visible"));
+  const showItem = (item) => {
+    item.classList.add("is-visible");
+  };
+
+  const prefersReducedMotion =
+    typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    revealItems.forEach(showItem);
     return;
   }
+
+  revealItems.forEach((item) => {
+    const rect = item.getBoundingClientRect();
+
+    if (rect.top <= window.innerHeight * 0.92) {
+      showItem(item);
+    }
+  });
 
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
+          showItem(entry.target);
           observer.unobserve(entry.target);
         }
       });
@@ -84,7 +107,21 @@ function setupRevealAnimations() {
     }
   );
 
-  revealItems.forEach((item) => observer.observe(item));
+  revealItems.forEach((item) => {
+    if (item.classList.contains("is-visible")) {
+      return;
+    }
+
+    observer.observe(item);
+  });
+
+  window.setTimeout(() => {
+    const hasVisibleItems = revealItems.some((item) => item.classList.contains("is-visible"));
+
+    if (!hasVisibleItems) {
+      revealItems.forEach(showItem);
+    }
+  }, 900);
 }
 
 function setupCountdowns() {
